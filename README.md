@@ -351,3 +351,41 @@ Hội thoại dài (40–80 câu): nếu kết quả kém, chạy cửa sổ tr�
 ```bash
 python -m demo.app
 ```
+
+---
+
+## 10. Phân công (3 tuần, 4 người)
+
+Theo doc kiến trúc, mục 11. Dữ liệu đã xong, nên:
+- **Tuần 1:** bốn người cài song song bốn phần độc lập.
+- **Tuần 2:** ghép mạng và chạy ablation.
+- **Tuần 3:** chạy kết quả cuối, hoàn thiện demo và báo cáo.
+
+**Ngày đầu tiên (cả nhóm):** thống nhất cấu trúc repo, file config, input/output của từng module (tên hàm, shape tensor; xem mục 3 và mục 7). Đây là điều kiện để làm song song mà cuối tuần ghép được.
+
+| Người | Tuần 1 (23–29/11): cài từng khối | Tuần 2 (30/11–6/12): ghép và ablation | Tuần 3 (7–13/12): kết quả, demo, báo cáo |
+| --- | --- | --- | --- |
+| **A** (khung huấn luyện) | Khối 1 Text encoder; vòng train/eval, early stopping, tính weighted-F1 và macro-F1; chạy ablation dòng 1 | Ghép toàn mạng; khối 6a, 6b, focal loss, loss shift; chạy dòng 5, 7, 8 | Chạy mô hình đầy đủ và các dòng ablation với 5 seed; tổng hợp bảng kết quả |
+| **B** (âm thanh) | Khối 2 Audio encoder, khối 3 Fusion (cả bản concat); kiểm tra bộ nhớ GPU, bật AMP | Chạy dòng 2, 3, 4; chỉnh `MAX_FRAMES`, dropout âm thanh | Phân tích lỗi: ma trận nhầm lẫn, F1 từng lớp, ví dụ đoán sai; viết phần Thí nghiệm trong báo cáo |
+| **C** (ngữ cảnh) | Khối 4, 4b và khối 5 Transformer tự viết (bias người nói, bias khoảng cách, mặt nạ); test mặt nạ với batch giả | Chạy dòng 6, 9, 9b, 9c; đo độ chính xác trên các câu có chuyển cảm xúc | Vẽ trọng số attention và giá trị bias đã học; viết phần Phương pháp và Nghiên cứu liên quan |
+| **D** (dữ liệu bổ sung + demo) | Thêm bảng tính cách PELD và chỉ số `prev(i)` vào `collate_fn`; demo bước 1–4 (tách âm thanh, tách người nói, chuyển giọng nói thành chữ, ghép câu) | Demo bước 5 (tiền xử lý dùng chung code với phần dữ liệu, gọi mô hình); khung giao diện Gradio/Streamlit | Hoàn thiện giao diện, thử 3–5 video, quay video demo dự phòng; làm slide |
+
+File phụ trách của từng người xem cây thư mục ở mục 4.
+
+### Mốc kiểm tra
+
+- [ ] **Hết tuần 1:**
+  - Mỗi khối chạy được với một batch thật, ra đúng shape.
+  - Dòng ablation 1 có số đầu tiên.
+  - Demo trả ra được danh sách câu từ một video thử.
+- [ ] **Hết tuần 2:**
+  - Mọi dòng ablation chạy xong ít nhất 1 seed.
+  - Demo chạy trọn từ video đến kết quả (giao diện có thể còn thô).
+- [ ] **Hết tuần 3:** bảng kết quả 5 seed, báo cáo đủ các phần, demo và video dự phòng, slide.
+
+### Phụ thuộc cần chú ý
+
+- **A cần khối của B và C:** tuần 2 của A cần khối 2–5 của B và C chạy được từ cuối tuần 1. Nếu một khối trễ, A ghép tạm bản đơn giản (concat thay fusion, bỏ khối 5) để không chặn việc chạy thí nghiệm.
+- **D cần checkpoint:** demo bước 5 của D cần một checkpoint bất kỳ từ tuần 2; dùng checkpoint tốt nhất ở tuần 3.
+- **Báo cáo viết dần từ tuần 2,** không dồn vào cuối: mỗi người viết phần mô tả khối mình đã cài.
+- **Chia GPU từ đầu tuần 3:** chạy 5 seed cho nhiều dòng ablation tốn GPU, nên chia Colab, Kaggle, máy cá nhân cho cả nhóm.
