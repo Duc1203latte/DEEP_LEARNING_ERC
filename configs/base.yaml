@@ -1,0 +1,73 @@
+# SECNet full model = ablation row 8.
+# Ablation files set `_base_: ../base.yaml` and only list keys that differ.
+# Write floats as 1.0e-3, not 1e-3 (PyYAML parses 1e-3 as a string).
+
+seed: 42
+output_dir: outputs
+
+data:
+  root: data/meld_processed
+  max_frames: null          # null = keep length stored in *_audio.pt; e.g. 600 to crop further at load time
+  num_workers: 2
+
+model:
+  d_model: 256
+  num_classes: 7
+
+  # component flags (ablation)
+  use_text: true            # false = row 2 (audio only, learned query)
+  use_audio: true
+  fusion: gated             # gated | concat
+  use_speaker: true         # block 4
+  use_context: true         # block 5
+  use_bias: true            # speaker + distance bias in block 5
+  use_shift: true           # block 6b
+  use_personality: false    # block 4b
+  personality_mode: big5    # big5 | onehot (row 9b)
+
+  # train-time input dropout (per utterance, only when model.training)
+  audio_dropout: 0.0
+  personality_dropout: 0.3
+
+  text:                     # block 1
+    emb_dim: 300
+    hidden: 128             # per direction
+    emb_dropout: 0.3
+  audio:                    # block 2
+    n_mels: 80
+    channels: [32, 64, 64]
+    hidden: 128             # per direction
+  fusion_heads: 4           # block 3
+  speaker:                  # block 4, 4b
+    max_speakers: 10
+    num_global_speakers: 7  # 6 main characters + other
+    personality_dim: 5
+    personality_hidden: 64
+  context:                  # block 5
+    num_layers: 2
+    num_heads: 4
+    ffn_dim: 512
+    dropout: 0.1
+    max_dist: 10
+  heads:                    # block 6a, 6b
+    hidden: 256
+    dropout: 0.3
+
+loss:
+  type: focal               # focal | ce  (ce = focal with gamma 0)
+  gamma: 2.0
+  use_class_weights: true   # alpha from meta.json (train split)
+  shift_weight: 0.5
+
+train:
+  batch_size: 8
+  max_epochs: 30
+  patience: 5               # early stopping on dev weighted-F1
+  lr: 1.0e-3
+  emb_lr: 1.0e-4
+  weight_decay: 1.0e-4
+  grad_clip: 1.0
+  amp: true
+
+eval:
+  drop_personality: false   # row 9c; usually set via `evaluate.py --drop_personality`

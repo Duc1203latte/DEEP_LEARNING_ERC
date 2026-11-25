@@ -1,0 +1,6 @@
+# Row 8b (optional): row 7 with plain CE, no class weights.
+# Compare with row 7 to measure the effect of class weights.
+_base_: ../base.yaml
+loss:
+  type: ce
+  use_class_weights: false

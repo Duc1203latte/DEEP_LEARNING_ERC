@@ -1,0 +1,7 @@
+# Row 5: + speaker embedding + context Transformer, no speaker/distance bias.
+_base_: ../base.yaml
+model:
+  use_bias: false
+  use_shift: false
+loss:
+  type: ce

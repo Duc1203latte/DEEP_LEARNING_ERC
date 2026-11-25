@@ -1,0 +1,3 @@
+# Row 8: full SECNet (CE -> focal loss). Identical to base.yaml;
+# this file exists so the run is named 08_full_s<seed>.
+_base_: ../base.yaml

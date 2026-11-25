@@ -1,0 +1,38 @@
+# Local-only notes for Claude Code (not pushed)
+CLAUDE.md
+.claude/
+
+# Data (shared via Drive, never committed)
+data/
+
+# Outputs: keep folder, ignore checkpoints and run artifacts
+outputs/*
+!outputs/.gitkeep
+*.pt
+*.pth
+*.ckpt
+
+# Media
+*.wav
+*.mp3
+*.mp4
+*.mkv
+*.avi
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Secrets (e.g. Hugging Face token for pyannote)
+.env
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

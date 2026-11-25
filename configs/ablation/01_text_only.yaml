@@ -1,0 +1,10 @@
+# Row 1: text only, no context (block 1 + 6a). Lowest baseline.
+_base_: ../base.yaml
+model:
+  use_audio: false
+  use_speaker: false
+  use_context: false
+  use_bias: false
+  use_shift: false
+loss:
+  type: ce

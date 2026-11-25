@@ -1,0 +1,6 @@
+# Row 6: + speaker and distance bias in attention (team's own design point).
+_base_: ../base.yaml
+model:
+  use_shift: false
+loss:
+  type: ce

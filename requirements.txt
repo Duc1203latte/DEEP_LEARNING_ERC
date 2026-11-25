@@ -1,0 +1,13 @@
+# Install torch/torchaudio separately with the right CUDA build:
+# https://pytorch.org/get-started/locally/
+numpy
+pandas
+scikit-learn
+librosa
+soundfile
+ftfy
+tqdm
+pyyaml
+matplotlib
+seaborn
+pytest

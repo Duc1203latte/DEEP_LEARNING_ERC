@@ -1,0 +1,10 @@
+# Row 3: text + audio, concat [h_t ; mean-pool(A)] -> Linear 512->256. No context.
+_base_: ../base.yaml
+model:
+  fusion: concat
+  use_speaker: false
+  use_context: false
+  use_bias: false
+  use_shift: false
+loss:
+  type: ce

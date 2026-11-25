@@ -1,0 +1,3 @@
+gradio            # or streamlit
+faster-whisper    # or whisperx
+pyannote.audio    # needs a Hugging Face token, see pyannote README

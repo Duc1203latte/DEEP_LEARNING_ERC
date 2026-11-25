@@ -1,0 +1,4 @@
+# Row 7: + emotion-shift head (multi-task). Still class-weighted CE.
+_base_: ../base.yaml
+loss:
+  type: ce
