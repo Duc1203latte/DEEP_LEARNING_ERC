@@ -2,6 +2,8 @@
 
 Bài tập lớn môn Deep Learning, nhóm 4 người.
 
+**Phần D, tuần 1 (Nguyễn Minh Tuấn):** [Hướng dẫn chạy PELD, prev_idx và demo bước 1–4](docs/WEEK1_README.md). [Gói mã](deliverables/week1/Nguyen_Minh_Tuan_Tuan1_Code.zip) · [3 video mẫu](deliverables/week1/Tuan1_Video_Mau.zip).
+
 **Bài toán:** cho một hội thoại tiếng Anh nhiều lượt, dự đoán cảm xúc của **từng câu** (7 lớp). Mạng dùng văn bản, âm thanh, thông tin người nói và (nếu có) tính cách người nói.
 
 **Demo:** nhận một video hội thoại, hiển thị cảm xúc của từng người theo thời gian.

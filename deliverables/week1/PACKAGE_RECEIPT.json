@@ -1,0 +1,15 @@
+{
+  "status": "PASS_ARCHIVE_INTEGRITY",
+  "code": {
+    "path": "Nguyen_Minh_Tuan_Tuan1_Code.zip",
+    "files": 33,
+    "bytes": 33403,
+    "sha256": "a8849653f6e1059d993c68b54c9d56fc9f341588e49ad4d2cd70aa1df89f42be"
+  },
+  "optional_sample_videos": {
+    "path": "Tuan1_Video_Mau.zip",
+    "files": 4,
+    "bytes": 17370014,
+    "sha256": "b83ce11c6d0ec00ff3df88c248bd6c9e369341aebbf55b460066254d77ee94aa"
+  }
+}

@@ -1,0 +1,7 @@
+# CPU demo steps 1-4. No Gradio, training data or SECNet checkpoint required.
+faster-whisper==1.2.1
+sherpa-onnx==2.0.3
+imageio-ffmpeg==0.8.1
+soundfile==0.14.0
+PyYAML>=6,<7
+huggingface-hub>=0.34,<1
